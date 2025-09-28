@@ -4,7 +4,7 @@
 # <h1 align="center">Swipeat</h1>
 <p align="center">
 Swipeat is a simple and efficient meal tracking <strong> AI Powered </strong>  <strong> cross-platform </strong>App.  
-Add meals once, then swipe daily to log them — fast, easy, and consistent.
+Add meals once, then swipe daily to log them — fast, easy, and consistent. (AVAILABLE ON ANDORID <a href="https://apkpure.com/p/com.annous246.react_native_app">DOWNLOAD</a>)
 </p>
 
 ![React Native](https://img.shields.io/badge/-React_Native-05122A?style=flat&logo=react)
