@@ -63,6 +63,37 @@ const ExtraInfo = ({
     calories ? calories.toString() : ""
   );
   const NotificationSettings = useContext(notificationContext);
+  function isFullZero() {
+    const fullString = (portion ?? 0.0).toFixed(15);
+    console.log(fullString);
+
+    let onlyZero = /^0\.0+$/.test(fullString);
+    console.log(onlyZero);
+    return onlyZero;
+  }
+  function getMultiplier(): number {
+    if (isFullZero()) {
+      return parseFloat(currentPortion) ?? 0.0;
+    } else {
+      console.log("second");
+      console.log(currentPortion);
+      console.log(parseFloat(currentPortion));
+      return (
+        parseFloat(currentPortion) / (portion ?? parseFloat(currentPortion))
+      );
+    }
+  }
+  function safeChoice(p: string): number {
+    switch (p) {
+      case "Calories":
+        return calories ? calories : 0.0;
+      case "Carbs":
+        return carbs ? carbs : 0.0;
+      case "Protein":
+        return protein ? protein : 0.0;
+    }
+    return 0.0;
+  }
   async function save() {
     setLoading(true);
     if (parseFloat(currentCalories) != calories) {
@@ -132,12 +163,42 @@ const ExtraInfo = ({
       //change
       const response = await Post(API_URL + "/foods/update/update_portion", {
         id: id,
-        portion: parseFloat(currentPortion),
+        portion: parseFloat(currentPortion ?? 0.0),
       });
       if (response.ok === 1) {
+        //updating portions
+        //auto update proportions front now
+
+        const multiplier = getMultiplier();
+        console.log(
+          "mult********************************************************"
+        );
+        console.log(multiplier);
+        console.log("safe");
+        console.log(safeChoice("Calories"));
+        console.log(safeChoice("Calories") * multiplier);
+        const newCalories = JSON.stringify(safeChoice("Calories") * multiplier);
+
+        const newCarbs = JSON.stringify(safeChoice("Carbs") * multiplier);
+
+        const newProtein = JSON.stringify(safeChoice("Protein") * multiplier);
+
+        console.log(multiplier);
+        console.log(newCarbs);
+        setCurrentCalories(newCalories);
+        setCurrentCarbs(newCarbs);
+        setCurrentProtein(newProtein);
+        console.log("here *******");
+
         const newValue = parseFloat(currentPortion);
         setCurrentFood((prev: foodType) => {
-          return { ...prev, portion: newValue };
+          return {
+            ...prev,
+            portion: newValue,
+            carbs: parseFloat(parseFloat(newCarbs).toFixed(2)),
+            calories: parseFloat(parseFloat(newCalories).toFixed(2)),
+            protein: parseFloat(parseFloat(newProtein).toFixed(2)),
+          };
         });
         NotificationSettings.notify(response.message, 0);
       } else {
@@ -149,7 +210,9 @@ const ExtraInfo = ({
 
     setLoading(false);
   }
-
+  useEffect(() => {
+    console.log("cals" + currentCalories);
+  }, [currentCalories]);
   function handlePortion(input: string) {
     if (!input || !input.length) setCurrentPortion(input);
     if (

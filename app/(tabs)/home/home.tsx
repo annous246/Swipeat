@@ -28,6 +28,7 @@ import Bookmark from "../bookmark/bookmark";
 import Test from "./test";
 import { notificationContext } from "@/app/context/NotificationProvider";
 import { DateContext } from "@/app/context/DateProvider";
+import CheckPopup from "./checkPopup/CheckPopup";
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 const { API_URL } = Constants.expoConfig?.extra;
@@ -99,6 +100,8 @@ const Home = () => {
       if (res.data && res.data.length)
         res.data.map((food: foodType) => {
           food["servings"] = 1;
+          console.log("****************************************");
+          console.log(food);
         });
       setFoodList(res.data);
       NotificationSettings.notify(res.message, 0);
@@ -234,6 +237,12 @@ const Home = () => {
           getProgress={getProgress}
         />
       }
+
+      <CheckPopup
+        setCarbsProgress={setCarbsProgress}
+        setCaloriesProgress={setCaloriesProgress}
+        setProteinProgress={setProteinProgress}
+      />
       {FoodDisplay && (
         <ScrollView
           style={{
@@ -279,4 +288,20 @@ const Home = () => {
 
 export default Home;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  popup: {},
+  instantButton: {
+    position: "absolute",
+    height: 100,
+    width: 60,
+    backgroundColor: "white",
+    borderRadius: 20,
+    top: screenHeight - 110,
+    alignSelf: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 0, height: -4 },
+    shadowRadius: 5,
+    elevation: 5,
+  },
+});

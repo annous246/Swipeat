@@ -75,6 +75,9 @@ const Create = () => {
   }
   async function submit() {
     setLoading(true);
+    console.log("**************************************kcal");
+    console.log(kcal);
+    console.log(parseFloat(kcal));
     const res = await Post(API_URL + "/foods/create", {
       kcal: parseFloat(kcal),
       protein: parseFloat(protein),

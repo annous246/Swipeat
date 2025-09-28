@@ -27,7 +27,6 @@
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="myapp"/>
         <data android:scheme="com.annous246.react_native_app"/>
-        <data android:scheme="exp+reactnativeapp"/>
       </intent-filter>
     </activity>
   </application>

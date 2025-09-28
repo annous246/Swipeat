@@ -1,11 +1,18 @@
-import { StyleSheet, Text, View, Image } from "react-native";
-import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import { Redirect } from "expo-router";
 import icons from "../constants/icons";
 import { text } from "body-parser";
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
+const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 import Home from "./home/home";
 import Profile from "./(profile)/_layout";
 import Bookmark from "./bookmark/bookmark";
@@ -13,8 +20,18 @@ import Create from "./create/create";
 import GaolsLayout from "./(goals)/_layout";
 import Icon from "../components/Icon";
 import Analytics from "./analytics/analytics";
+import { useNavigationState } from "@react-navigation/native";
+import SpecialButton from "./specialButton/SpecialButton";
 const Tabs = createBottomTabNavigator();
 const TabsLayout = () => {
+  const state = useNavigationState((state) => state); // full navigation state
+  const currentTabIndex = state.index; // index of active ta
+  const currentTab = state.routes[0]["state"] ?? { index: 0 };
+  useEffect(() => {
+    console.log("currently");
+    console.log(currentTab);
+  }, [currentTab]);
+  const NoComp = () => null;
   return (
     <>
       <Tabs.Navigator
@@ -45,6 +62,7 @@ const TabsLayout = () => {
             },
           }}
         />
+
         <Tabs.Screen
           component={Bookmark}
           name="bookmark"
@@ -83,7 +101,28 @@ const TabsLayout = () => {
             },
           }}
         />
-
+        <Tabs.Screen
+          name="instant"
+          component={NoComp}
+          options={{
+            title: "Instant",
+            headerShown: false,
+            tabBarButton: (props) => (
+              <SpecialButton {...props} tab={currentTab} />
+            ),
+            tabBarIcon: ({ size, focused, color }) => {
+              return (
+                <Icon
+                  focused={focused}
+                  icon={currentTab.index != 0 ? "camera-outline" : "camera"}
+                  name="Instant"
+                  size={size}
+                  color={color}
+                />
+              );
+            },
+          }}
+        />
         <Tabs.Screen
           component={GaolsLayout}
           name="(goals)"

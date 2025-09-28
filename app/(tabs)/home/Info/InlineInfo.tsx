@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import VerticalLine from "@/app/components/VerticalLine";
 
 const InlineInfo = ({
@@ -11,21 +11,27 @@ const InlineInfo = ({
   protein: number;
   calories: number;
 }) => {
+  useEffect(() => {
+    console.log(
+      "calories*************************************************************************************"
+    );
+    console.log(calories);
+  }, []);
   return (
     <View style={styles.spanner}>
       <View style={styles.column}>
         <Text style={styles.text}>Calories</Text>
-        <Text style={styles.subText}>{calories} kcal</Text>
+        <Text style={styles.subText}>{calories.toFixed(2)} kcal</Text>
       </View>
       <VerticalLine width={3} height={30} color="gray" marginInline={20} />
       <View style={styles.column}>
         <Text style={styles.text}>Protein</Text>
-        <Text style={styles.subText}>{protein} g</Text>
+        <Text style={styles.subText}>{protein.toFixed(2)} g</Text>
       </View>
       <VerticalLine width={3} height={30} color="gray" marginInline={20} />
       <View style={styles.column}>
         <Text style={styles.text}>Carbs</Text>
-        <Text style={styles.subText}>{carbs} g</Text>
+        <Text style={styles.subText}>{carbs.toFixed(2)} g</Text>
       </View>
     </View>
   );
