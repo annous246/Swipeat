@@ -88,6 +88,7 @@ const FoodComponent = ({
     });
   }
   function up() {
+    console.log("up");
     if (food.servings < 999) {
       setFoodList((prev: foodType[]) => {
         const result = [
@@ -163,7 +164,8 @@ const FoodComponent = ({
         );
         return [...fp, ...sp];
       });
-      TabSettings.setFoodUpdate((prev: boolean) => !prev);
+      //notify for food changes (no need it slow user experience)
+      //TabSettings.setFoodUpdate((prev: boolean) => !prev);
       NotificationSettings.notify(ret.message, 0);
     } else {
       reverse();
@@ -180,7 +182,20 @@ const FoodComponent = ({
     const res = await Post(API_URL + "/foods/delete", { foodId: food.id });
 
     if (res.ok === 1) {
-      TabSettings.setFoodUpdate((prev: boolean) => !prev);
+      //remove food
+      setFoodList((prev: foodType[]) => {
+        const fp: foodType[] = prev.slice(
+          0,
+          prev.findIndex((element) => element.id == food.id)
+        );
+        const sp: foodType[] = prev.slice(
+          prev.findIndex((element) => element.id == food.id) + 1
+        );
+        return [...fp, ...sp];
+      });
+
+      //notify for food changes (no need it slow user experience)
+      //TabSettings.setFoodUpdate((prev: boolean) => !prev);
       NotificationSettings.notify(res.message, 0);
     } else {
       NotificationSettings.notify(res.message, 2);

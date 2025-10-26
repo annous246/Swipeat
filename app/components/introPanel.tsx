@@ -42,6 +42,8 @@ const IntroPanel = () => {
           flexDirection: "row",
           marginBottom: 20,
           marginTop: 20,
+          position: "relative",
+          zIndex: 10,
         }}
       >
         <Text

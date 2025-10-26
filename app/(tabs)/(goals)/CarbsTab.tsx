@@ -123,10 +123,13 @@ const CarbsTab = () => {
       //loss
       fatCalories = 0.25 * caloriesGoal;
     }
+    console.log(weightGoal);
     console.log(caloriesGoal);
     console.log(proteinGoal);
+    console.log(fatCalories);
     const rest = caloriesGoal - fatCalories - proteinCalories;
     const carbs = rest / 4;
+    console.log(carbs);
     setEstimation(Math.max(carbs, 0));
     setfatEstimation(fatCalories / 9);
     setGotResults(true);

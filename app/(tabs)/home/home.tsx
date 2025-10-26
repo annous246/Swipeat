@@ -7,13 +7,7 @@ import {
   View,
   Dimensions,
 } from "react-native";
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import HomeHeader from "./FoodComponents/HomeHeader";
 import FoodComponent from "./FoodComponents/FoodComponent";
@@ -25,10 +19,12 @@ import LoadingComponent from "@/app/components/loadingComponent";
 import icons from "@/app/constants/icons";
 import { TabsContext } from "@/app/context/TabsProvider";
 import Bookmark from "../bookmark/bookmark";
-import Test from "./test";
 import { notificationContext } from "@/app/context/NotificationProvider";
 import { DateContext } from "@/app/context/DateProvider";
 import CheckPopup from "./checkPopup/CheckPopup";
+import SortComponent from "./sortComponents/SortComponent";
+import SortPanel from "./sortComponents/SortPanel";
+import SearchBar from "./searchBar/SearchBar";
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 const { API_URL } = Constants.expoConfig?.extra;
@@ -39,9 +35,13 @@ const Home = () => {
   const [animatedStatus, setAnimatedStatus] = useState<boolean>(false);
   const [currentFood, setCurrentFood] = useState<foodType | null>(null);
   const [foodList, setFoodList] = useState<foodType[]>([]);
+  const [filteredOutFoodlist, setFilteredOutFoodlist] = useState<foodType[]>(
+    []
+  );
   const [caloriesProgress, setCaloriesProgress] = useState<number>(0);
   const [proteinProgress, setProteinProgress] = useState<number>(0);
   const [carbsProgress, setCarbsProgress] = useState<number>(0);
+  const [sorting, setSorting] = useState<boolean>(false);
 
   const [FoodDisplay, setFoodDisplay] = useState<boolean>(true);
 
@@ -50,7 +50,7 @@ const Home = () => {
   const DateSettings = useContext(DateContext);
   async function getProgress() {
     console.log("progress");
-    const res = await Get(API_URL + "/progress/read", {});
+    const res: any = await Get(API_URL + "/progress/read", {});
     if (res.ok === 1) {
       setCaloriesProgress(res.data.calories_progress);
       setCarbsProgress(res.data.carbs_progress);
@@ -67,7 +67,7 @@ const Home = () => {
     console.log(date.getFullYear());
     console.log(date.getMonth() + 1);
     console.log(date.getDate());
-    const res = await Get(API_URL + "/progress/readPast", {
+    const res: any = await Get(API_URL + "/progress/readPast", {
       params: {
         day: Number(date.getDate()),
         year: Number(date.getFullYear()),
@@ -117,6 +117,8 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    console.log("change");
+    console.log(foodList);
     getFood();
     //only when date is good
     if (DateSettings.currentDate.getDate() == new Date().getDate())
@@ -147,6 +149,14 @@ const Home = () => {
     console.log("status home");
     console.log(status);
   }, [status]);
+  useEffect(() => {
+    console.log("foooooooood list ");
+    console.log("sortd");
+    console.log(foodList.length);
+  }, [foodList]);
+  useEffect(() => {
+    console.log("current food  ");
+  }, [currentFood]);
   const renderFoodItem = useCallback(
     ({ item }: { item: foodType }) => (
       <FoodComponent
@@ -238,11 +248,20 @@ const Home = () => {
         />
       }
 
+      <SearchBar
+        setFilteredOutFoodlist={setFilteredOutFoodlist}
+        setFoodList={setFoodList}
+        filteredOutFoodList={filteredOutFoodlist}
+        foodList={foodList}
+      />
+
       <CheckPopup
         setCarbsProgress={setCarbsProgress}
         setCaloriesProgress={setCaloriesProgress}
         setProteinProgress={setProteinProgress}
       />
+      <SortPanel sorting={sorting} setFoodList={setFoodList} />
+      <SortComponent setSorting={setSorting} />
       {FoodDisplay && (
         <ScrollView
           style={{
@@ -262,8 +281,31 @@ const Home = () => {
               source={icons.refresh}
             />
           </TouchableOpacity>
+
           {foodList && foodList.length > 0 ? (
-            foodList.map((food: any) => {
+            foodList.map((food: any, index) => {
+              if (index == foodList.length - 1) {
+                //last item
+
+                return (
+                  <>
+                    <FoodComponent
+                      key={food.id}
+                      food={food}
+                      setStatus={setStatus}
+                      setCurrentFood={setCurrentFood}
+                      setFoodList={setFoodList}
+                      setCarbsProgress={setCarbsProgress}
+                      setCaloriesProgress={setCaloriesProgress}
+                      setProteinProgress={setProteinProgress}
+                    />
+                    {/* just a pad for isntant can and search heights */}
+                    <View
+                      style={{ height: 72, backgroundColor: "trasparent" }}
+                    ></View>
+                  </>
+                );
+              }
               return (
                 <FoodComponent
                   key={food.id}

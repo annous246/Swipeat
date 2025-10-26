@@ -24,8 +24,14 @@ import warning from "../../assets/warning.png";
 import successful from "../../assets/successful.png";
 import error from "../../assets/error.png";
 import camera from "../../assets/camera.png";
+import sort from "../../assets/sort.png";
+import x from "../../assets/x.png";
+import send from "../../assets/send.png";
+import gemini from "../../assets/gemini.png";
 
 export default {
+  send,
+  sort,
   home,
   logo,
   google,
@@ -52,4 +58,6 @@ export default {
   successful,
   warning,
   camera,
+  x,
+  gemini,
 };

@@ -4,6 +4,7 @@ interface tabsContextType {
   foodUpdate: boolean;
   setFoodUpdate: any;
   closed: boolean;
+  sorting: boolean;
   setClosed: any;
   instantProtein: string;
   instantKcal: string;
@@ -15,6 +16,7 @@ interface tabsContextType {
   setInstantCarbs: any;
   setInstantPortion: any;
   setInstantFoodName: any;
+  setSorting: any;
 }
 
 const TabsContext = createContext<tabsContextType>({
@@ -32,6 +34,8 @@ const TabsContext = createContext<tabsContextType>({
   instantCarbs: "0.0",
   instantPortion: "0.0",
   instantFoodName: "",
+  setSorting: null,
+  sorting: false,
 });
 const TabsProvider = ({ children }: { children: any }) => {
   const [foodUpdate, setFoodUpdate] = useState<boolean>(true);
@@ -41,6 +45,7 @@ const TabsProvider = ({ children }: { children: any }) => {
   const [instantProtein, setInstantProtein] = useState<string>("0.0");
   const [instantPortion, setInstantPortion] = useState<string>("0.0");
   const [instantFoodName, setInstantFoodName] = useState<string>("");
+  const [sorting, setSorting] = useState<boolean>(false);
 
   return (
     <TabsContext.Provider
@@ -59,6 +64,8 @@ const TabsProvider = ({ children }: { children: any }) => {
         setClosed,
         foodUpdate,
         setFoodUpdate,
+        setSorting,
+        sorting,
       }}
     >
       {children}
