@@ -57,22 +57,19 @@ Add meals once, then swipe daily to log them — fast, easy, and consistent.
 ---
 
 
-## 🧠 AI System Architecture
+## 🧠 AI Food Recognition System Architecture
 ```mermaid
 flowchart LR
-    A[Backend Main Server] --> B[Splits PDF into Chunks]
-    B --> C[Flask AI Server]
+    A["Mobile App (Expo React Native)"] --> B["Node.js Backend API"]
 
-    subgraph FlaskServer [Flask AI Server - Parallel Processing]
+    subgraph Backend ["Node.js Backend Server"]
         direction TB
-        C --> D[Qwen3-Next-80B-A3B-Instruct\nDocument Summarization]
-        C --> E[ChromaDB\nExtract Top 3 Categories]
+        B --> C["GPT-4 (Tool Calling): Image Recognition + Food Detection"]
+        C --> E["Response Builder: Combine food name + macros + portion"]
     end
 
-    D --> F[Combined Response\nSummary + Categories]
-    E --> F
-    F --> G[Backend Main Server]
-    G --> H[GPT-4.1 Model\nGenerates MCQ Quiz]
+    E --> F["Return JSON Response to Frontend"]
+    F --> G["Display Food Info: Name, Calories, Protein, Carbs, Fat"]
 ```
 
 
