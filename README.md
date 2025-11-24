@@ -212,21 +212,26 @@ npx expo start --lan
 ```
 ## 📱 Screenshots
 <p align="center"> 
- <img src="assets/screenshots/main.jpg" alt="Home Screen" height="400"/> 
-<img src="assets/screenshots/sign.png" alt="Home Screen" height="400"/> 
-<img src="assets/screenshots/login.png" alt="Home Screen" height="400"/> 
-<img src="assets/screenshots/protein.jpg" alt="Home Screen" height="400"/> 
-<img src="assets/screenshots/carbs.jpg" alt="Home Screen" height="400"/> 
-<img src="assets/screenshots/calories.jpg" alt="Home Screen" height="400"/> 
-<img src="assets/screenshots/adder.jpg" alt="Home Screen" height="400"/> 
-<img src="assets/screenshots/home.jpg" alt="Home Screen" height="400"/> 
-<img src="assets/screenshots/swipe.jpg" alt="Home Screen" height="400"/> 
-<img src="assets/screenshots/consumed.jpg" alt="Home Screen" height="400"/> 
-<img src="assets/screenshots/short analytics.jpg" alt="Home Screen" height="400"/> 
-<img src="assets/screenshots/long analytics.png" alt="Home Screen" height="400"/> 
-<img src="assets/screenshots/profile.jpg" alt="Home Screen" height="400"/> 
-<img src="assets/screenshots/settings.jpg" alt="Home Screen" height="400"/> 
-<img src="assets/screenshots/tos.jpg" alt="Home Screen" height="400"/> 
+  <img src="assets/screenshots/1.jpg" alt="Screenshot 1" height="400"/>
+  <img src="assets/screenshots/2.jpg" alt="Screenshot 2" height="400"/>
+  <img src="assets/screenshots/3.png" alt="Screenshot 3" height="400"/>
+  <img src="assets/screenshots/4.jpg" alt="Screenshot 4" height="400"/>
+  <img src="assets/screenshots/5.jpg" alt="Screenshot 5" height="400"/>
+  <img src="assets/screenshots/6.jpg" alt="Screenshot 6" height="400"/>
+  <img src="assets/screenshots/7.png" alt="Screenshot 7" height="400"/>
+  <img src="assets/screenshots/8.jpg" alt="Screenshot 8" height="400"/>
+  <img src="assets/screenshots/9.jpg" alt="Screenshot 9" height="400"/>
+  <img src="assets/screenshots/10.jpg" alt="Screenshot 10" height="400"/>
+  <img src="assets/screenshots/11.jpg" alt="Screenshot 11" height="400"/>
+  <img src="assets/screenshots/12.jpg" alt="Screenshot 12" height="400"/>
+  <img src="assets/screenshots/13.jpg" alt="Screenshot 13" height="400"/>
+  <img src="assets/screenshots/14.jpg" alt="Screenshot 14" height="400"/>
+  <img src="assets/screenshots/15.jpg" alt="Screenshot 15" height="400"/>
+  <img src="assets/screenshots/16.jpg" alt="Screenshot 16" height="400"/>
+  <img src="assets/screenshots/17.jpg" alt="Screenshot 17" height="400"/>
+  <img src="assets/screenshots/18.jpg" alt="Screenshot 18" height="400"/>
+  <img src="assets/screenshots/19.jpg" alt="Screenshot 19" height="400"/>
+
 
 </p>
 
