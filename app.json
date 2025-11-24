@@ -10,7 +10,7 @@
     "newArchEnabled": false,
     "extra": {
       "API_URL": "https://fitness-api-o543.onrender.com",
-      "API_URL2": "http://localhost:3000",
+      "API_URL2": "http://192.168.1.100:3000",
       "router": {
         "origin": false
       },

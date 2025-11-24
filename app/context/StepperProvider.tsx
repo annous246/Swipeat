@@ -22,6 +22,7 @@ const StepperProvider = (props: StepperContextInterface) => {
   const [stepper, setStepper] = useState<boolean>(false);
   const AuthSettings = useContext(AuthContext);
   async function saveStep() {
+    console.log("stepper context");
     if (stepper) await AsyncStorage.setItem("stepper", JSON.stringify(stepper));
     else await AsyncStorage.removeItem("stepper");
   }

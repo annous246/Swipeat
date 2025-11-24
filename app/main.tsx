@@ -18,6 +18,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Home from "./(tabs)/home/home";
 import Bookmark from "./(tabs)/bookmark/bookmark";
 import profile from "./(tabs)/(profile)/_layout";
+import Reset from "./(auth)/reset";
 
 export default function Main() {
   const StepperSettings = useContext(StepperContext);
@@ -26,13 +27,17 @@ export default function Main() {
   const [isAuth, setIsAuth] = useState<Boolean>(
     AuthSettings.userToken ? true : false
   );
+
   const Stack = createNativeStackNavigator();
   useEffect(() => {
     console.log("change");
     console.log(AuthSettings.userToken);
+    console.log(AuthSettings.user);
     setIsAuth(AuthSettings.userToken != null);
   }, [AuthSettings.userToken]);
   useEffect(() => {
+    console.log("StepperSettings.stepper");
+    console.log(StepperSettings.stepper);
     setStarted(!StepperSettings.stepper);
   }, [StepperSettings.stepper]);
   useEffect(() => {

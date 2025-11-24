@@ -46,6 +46,7 @@ const App = () => {
     console.log("loading");
     console.log(loading);
   }, [loading]);
+
   function handlePress() {
     router.push("/sign-in");
   }

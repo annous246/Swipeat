@@ -20,6 +20,7 @@ import { Get, Post } from "../services/api";
 import { ScrollView } from "react-native-gesture-handler";
 import Constants from "expo-constants";
 import { notificationContext } from "../context/NotificationProvider";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { API_URL } = Constants.expoConfig?.extra;
 const SignUp = () => {
@@ -49,6 +50,7 @@ const SignUp = () => {
     username: string
   ) {
     console.log("here");
+    console.log(API_URL);
     const ret = await Post(API_URL + "/auth/sign-up", {
       password: password,
       confirmPassword: confirmPassword,
@@ -58,7 +60,9 @@ const SignUp = () => {
     console.log("ret");
     console.log(ret);
     if (ret.ok == 1) {
-      router.push("/sign-in");
+      //temporary email save
+      await AsyncStorage.setItem("temp_email", email);
+      router.push("/verification");
       NotificationSettings.notify(ret.message, 0);
     } else NotificationSettings.notify(ret.message, 2);
   }

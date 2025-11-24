@@ -25,6 +25,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import axios from "axios";
 import { notificationContext } from "../context/NotificationProvider";
 import * as AuthSession from "expo-auth-session";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { API_URL } = Constants.expoConfig?.extra;
 const SignIn = () => {
@@ -64,7 +65,16 @@ const SignIn = () => {
       ] = `Bearer ${ret.data.token}`;
       //  router.push("/");
       NotificationSettings.notify(ret.message, 0);
-    } else NotificationSettings.notify(ret.message, 2);
+    } else {
+      //incase of verif phase redirect
+      if (ret.ok == 2) {
+        //cache in email
+        await AsyncStorage.setItem("temp-email", email);
+        router.push("/(auth)/verification");
+      }
+
+      NotificationSettings.notify(ret.message, 2);
+    }
   }
   useEffect(() => {
     console.log(AuthSettings.user);
@@ -262,6 +272,9 @@ const SignIn = () => {
           />
 
           <Link href="/sign-up">Dont have An Account</Link>
+          <Link style={{ marginTop: 10 }} href="/email">
+            Forgot Password
+          </Link>
         </ScrollView>
       </Pressable>
     </LinearGradient>

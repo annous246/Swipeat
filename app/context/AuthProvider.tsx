@@ -56,6 +56,10 @@ const AuthProvider = (props: AuthContextInterface) => {
     if (!validation) {
       await logout();
     }
+    //in case didnt start stupper and restarted app
+    if (JSON.parse(localUser)) {
+      StepperSettings.setStepper(JSON.parse(localUser).stepper);
+    }
   }
   useEffect(() => {
     /*azdaz*/
