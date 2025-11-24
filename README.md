@@ -7,7 +7,7 @@
 <p align="center">
 Swipeat is a simple and efficient meal tracking <strong>AI Powered</strong> <strong>cross-platform</strong> app.  
 Add meals once, then swipe daily to log them — fast, easy, and consistent.  
-(AVAILABLE ON ANDROID 👉 <a href="https://apkpure.com/p/com.annous246.react_native_app">DOWNLOAD</a>)
+(AVAILABLE ON ANDROID 👉 <a href="https://apkpure.com/p/com.annous246.react_native_app">DOWNLOAD (old version)</a>)
 </p>
 
 ---
@@ -56,6 +56,107 @@ Add meals once, then swipe daily to log them — fast, easy, and consistent.
 
 ---
 
+## 🛢️ Databse Class Diagram
+
+```mermaid
+classDiagram
+    %% =======================
+    %%        USERS
+    %% =======================
+    class Users {
+        +int id PK
+        +string email
+        +string password
+        +string username
+        +float protein_progress
+        +float carbs_progress
+        +float calories_progress
+        +float height
+        +float weight
+        +int age
+        +boolean stepper
+        +timestamp last_reset
+        +boolean gender
+        +boolean verified
+        +string code
+        +timestamp code_date
+    }
+
+    %% =======================
+    %%        FOODS
+    %% =======================
+    class Foods {
+        +int id PK
+        +string name
+        +float protein
+        +float carbs
+        +float calories
+        +float portion
+        +int userid FK -> Users.id
+    }
+
+    %% =======================
+    %%   CONSUMED FOODS TODAY
+    %% =======================
+    class ConsumedFoods {
+        +string name
+        +float protein
+        +float carbs
+        +float calories
+        +float portion
+        +int userid FK -> Users.id
+        +int servings
+        +int id FK -> Foods.id
+    }
+
+    %% =======================
+    %%   PAST CONSUMED FOODS
+    %% =======================
+    class PastConsumedFoods {
+        +int id PK
+        +string name
+        +float protein
+        +float carbs
+        +float calories
+        +float portion
+        +int userid FK -> Users.id
+        +date consumed_date
+        +int servings
+    }
+
+    %% =======================
+    %%     MACRO GOALS NOW
+    %% =======================
+    class MacroGoals {
+        +float protein_goal
+        +float carbs_goal
+        +float calories_goal
+        +int userid FK -> Users.id
+    }
+
+    %% =======================
+    %%    PAST MACRO PROGRESS
+    %% =======================
+    class PastMacroProgress {
+        +float protein_goal
+        +float carbs_goal
+        +float calories_goal
+        +int userid FK -> Users.id
+        +date progress_date
+    }
+
+    %% =======================
+    %%      RELATIONSHIPS
+    %% =======================
+
+    Users "1" --> "many" Foods : owns >
+    Users "1" --> "many" ConsumedFoods : logs >
+    Users "1" --> "many" PastConsumedFoods : logged >
+    Users "1" --> "1" MacroGoals : has >
+    Users "1" --> "many" PastMacroProgress : history >
+
+    Foods "1" --> "many" ConsumedFoods : referenced by >
+```
 
 ## 🧠 AI Food Recognition System Architecture
 ```mermaid
